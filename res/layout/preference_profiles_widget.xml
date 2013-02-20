@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- <RadioButton -->
+<!--     xmlns:android="http://schemas.android.com/apk/res/android" -->
+<!--     android:id="@+android:id/checkbox" -->
+<!--     android:layout_width="wrap_content" -->
+<!--     android:layout_height="wrap_content" -->
+<!--     android:layout_gravity="center" -->
+<!--     android:focusable="false" -->
+<!--     android:clickable="false" /> -->
+
+<LinearLayout 
+    	xmlns:android="http://schemas.android.com/apk/res/android"
+    	android:id="@+id/linear"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:layout_gravity="center"
+    	android:orientation="horizontal"
+>
+<!-- android:id一定要用@+android:id/icon -->
+
+	    <RadioButton
+    android:id="@+android:id/checkbox"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:focusable="false"
+    android:clickable="false" />
+	    
+	    <ImageView 
+    android:id="@+android:id/icon"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:src="@drawable/biaozhun"
+    />
+</LinearLayout>   

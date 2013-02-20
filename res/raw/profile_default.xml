@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<profiles>
+    <!-- 预设模式-->
+    <!-- 静音 -->
+    <profile nameres="profileNameSlient">
+        <media_volume>0</media_volume><!-- 多媒体音量 -->
+        <ring_volume>0</ring_volume><!-- 来电铃声音量 -->
+        <notification_volume>0</notification_volume><!-- 系统通知声音量 -->
+        <clock_volume>0</clock_volume><!-- 闹钟音量 -->
+        <ringtone>content://settings/system/ringtone</ringtone><!-- 来电铃声 -->
+        <notificationtone>content://settings/system/notification_sound</notificationtone><!-- 通知铃声 -->
+        <alarmtone>content://settings/system/alarm_alert</alarmtone><!-- 闹钟铃声 -->
+        <ringvibrator>1</ringvibrator><!-- 来电时是否振动，0:不震动，1：振动 -->
+         <default>1</default><!-- 1:预设情景模式,0:自定义情景模式 -->
+         <icon nameres="slient"></icon><!-- 设置情景模式图标 -->
+    </profile>
+    <!-- 会议 -->
+    <profile nameres="profileNameConference">
+        <media_volume>0</media_volume><!-- 多媒体音量 -->
+        <ring_volume>3</ring_volume><!-- 来电铃声音量 -->
+        <notification_volume>3</notification_volume><!-- 系统通知声音量 -->
+        <clock_volume>0</clock_volume><!-- 闹钟音量 -->
+        <ringtone>content://settings/system/ringtone</ringtone><!-- 来电铃声 -->
+        <notificationtone>content://settings/system/notification_sound</notificationtone><!-- 通知铃声 -->
+        <alarmtone>content://settings/system/alarm_alert</alarmtone><!-- 闹钟铃声 -->
+        <ringvibrator>1</ringvibrator><!-- 来电时是否振动，0:不震动，1：振动 -->
+         <default>1</default><!-- 1:预设情景模式,0:自定义情景模式 -->
+         <icon nameres="huiyi"></icon><!-- 设置情景模式图标 -->
+    </profile>
+    <!-- 户外 -->
+    <profile nameres="profileNameOutdoor">
+        <media_volume>11</media_volume><!-- 多媒体音量 -->
+        <ring_volume>7</ring_volume><!-- 来电铃声音量 -->
+        <notification_volume>7</notification_volume><!-- 系统通知声音量 -->
+        <clock_volume>7</clock_volume><!-- 闹钟音量 -->
+        <ringtone>content://settings/system/ringtone</ringtone><!-- 来电铃声 -->
+        <notificationtone>content://settings/system/notification_sound</notificationtone><!-- 通知铃声 -->
+        <alarmtone>content://settings/system/alarm_alert</alarmtone><!-- 闹钟铃声 -->
+        <ringvibrator>1</ringvibrator><!-- 来电时是否振动，0:不震动，1：振动 -->
+         <default>1</default><!-- 1:预设情景模式,0:自定义情景模式 -->
+         <icon nameres="out"></icon><!-- 设置情景模式图标 -->
+    </profile>
+     <!-- 标准 -->
+    <profile nameres="profileNameDeafult">
+        <media_volume>6</media_volume><!-- 多媒体音量 最大值为15-->
+        <ring_volume>6</ring_volume><!-- 来电铃声音量  最大值为 7-->
+        <notification_volume>5</notification_volume><!-- 系统通知声音量  最大值为 7-->
+        <clock_volume>6</clock_volume><!-- 闹钟音量 最大值为 7 -->
+        <ringtone>content://settings/system/ringtone</ringtone><!-- 来电铃声 -->
+        <notificationtone>content://settings/system/notification_sound</notificationtone><!-- 通知铃声 -->
+        <alarmtone>content://settings/system/alarm_alert</alarmtone><!-- 闹钟铃声 -->
+        <ringvibrator>1</ringvibrator><!-- 来电时是否振动，0:不震动，1：振动 -->
+        <default>1</default><!-- 1:预设情景模式,0:自定义情景模式 -->
+        <icon nameres="biaozhun"></icon><!-- 设置情景模式图标 -->
+    </profile>
+    <!-- 预设模式 -->
+    
+</profiles>

@@ -1,0 +1,62 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.dreamlink.profiles"
+    android:versionCode="1"
+    android:versionName="Version 0.08_20130219" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="15" />
+
+    <application
+        android:icon="@drawable/icon2"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Holo" >
+        <activity
+            android:name=".ui.ProfileListActivity"
+            android:label="@string/title_activity_main"
+            android:screenOrientation="portrait" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ui.ProfileConfigActivity"
+            android:label="@string/item_edit"
+            android:screenOrientation="portrait" />
+
+        <service android:name=".ProfileService" >
+        </service>
+
+        <provider
+            android:name=".data.ProfilesProvider"
+            android:authorities="com.dreamlink.profiles.data.profilesprovider" >
+        </provider>
+
+        <receiver android:name=".widget.DreamLinkWidget" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.dreamlink.appWidgetUpdate" >
+                </action>
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/mywidgt" />
+        </receiver>
+        <activity
+            android:name=".widget.DialogForAppWidget"
+            android:theme="@android:style/Theme.Dialog" >
+            <intent-filter>
+                <action android:name="com.dreamlink.arbiter.liu" />
+
+                <category android:name="android.intent.category.default" />
+            </intent-filter>
+        </activity>
+    </application>
+
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" >
+    </uses-permission>
+
+</manifest>

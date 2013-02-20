@@ -1,0 +1,43 @@
+android.support.v4.app.BackStackState
+android.support.v4.app.BackStackState: android.os.Parcelable$Creator CREATOR
+android.support.v4.app.Fragment$SavedState
+android.support.v4.app.Fragment$SavedState: android.os.Parcelable$Creator CREATOR
+android.support.v4.app.FragmentActivity
+android.support.v4.app.FragmentManagerState
+android.support.v4.app.FragmentManagerState: android.os.Parcelable$Creator CREATOR
+android.support.v4.app.FragmentState
+android.support.v4.app.FragmentState: android.os.Parcelable$Creator CREATOR
+android.support.v4.app.FragmentTabHost
+android.support.v4.app.FragmentTabHost: FragmentTabHost(android.content.Context,android.util.AttributeSet)
+android.support.v4.app.FragmentTabHost$SavedState
+android.support.v4.app.FragmentTabHost$SavedState: android.os.Parcelable$Creator CREATOR
+android.support.v4.content.ModernAsyncTask$Status: android.support.v4.content.ModernAsyncTask$Status[] values()
+android.support.v4.content.ModernAsyncTask$Status: android.support.v4.content.ModernAsyncTask$Status valueOf(java.lang.String)
+android.support.v4.view.PagerTabStrip
+android.support.v4.view.PagerTabStrip: PagerTabStrip(android.content.Context,android.util.AttributeSet)
+android.support.v4.view.PagerTitleStrip
+android.support.v4.view.PagerTitleStrip: PagerTitleStrip(android.content.Context,android.util.AttributeSet)
+android.support.v4.view.ViewPager
+android.support.v4.view.ViewPager: ViewPager(android.content.Context,android.util.AttributeSet)
+android.support.v4.view.ViewPager$LayoutParams
+android.support.v4.view.ViewPager$LayoutParams: ViewPager$LayoutParams(android.content.Context,android.util.AttributeSet)
+android.support.v4.view.ViewPager$SavedState
+android.support.v4.view.ViewPager$SavedState: android.os.Parcelable$Creator CREATOR
+com.dreamlink.profiles.Profile
+com.dreamlink.profiles.Profile: android.os.Parcelable$Creator CREATOR
+com.dreamlink.profiles.ProfileService
+com.dreamlink.profiles.ProfileService: ProfileService()
+com.dreamlink.profiles.data.ProfilesProvider
+com.dreamlink.profiles.data.ProfilesProvider: ProfilesProvider()
+com.dreamlink.profiles.data.ProfilesProviderTest
+com.dreamlink.profiles.preference.ProfileNamePreference
+com.dreamlink.profiles.preference.ProfileRingtonePreference
+com.dreamlink.profiles.preference.ProfileRingtonePreference: ProfileRingtonePreference(android.content.Context,android.util.AttributeSet)
+com.dreamlink.profiles.preference.ProfilesPreference
+com.dreamlink.profiles.preference.StreamVolumePreference
+com.dreamlink.profiles.preference.StreamVolumePreference: StreamVolumePreference(android.content.Context,android.util.AttributeSet,int)
+com.dreamlink.profiles.preference.StreamVolumePreference: StreamVolumePreference(android.content.Context,android.util.AttributeSet)
+com.dreamlink.profiles.ui.ProfileConfigActivity
+com.dreamlink.profiles.ui.ProfileConfigActivity: ProfileConfigActivity()
+com.dreamlink.profiles.ui.ProfileListActivity
+com.dreamlink.profiles.ui.ProfileListActivity: ProfileListActivity()

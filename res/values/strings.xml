@@ -1,0 +1,53 @@
+<resources>
+
+    <string name="app_name">"Profiles"</string>
+    <string name="menu_settings">"Settings"</string>
+    <string name="title_activity_main">"DL情景模式"</string>
+    <string name="item_edit">"编辑"</string>
+    
+    <string name="pre_profiles">"预设模式"</string>
+    <string name="custom_profiles">"自定义模式"</string>
+	<string name="profileNameDeafult">"标准"</string>
+	<string name="profileNameSlient">"静音"</string>
+	<string name="profileNameWork">"会议"</string>
+	<string name="profileNameConference">"会议"</string>
+	<string name="profileNameOutdoor">"户外"</string>
+	
+	<string name="profile_name_section">名称</string>
+	<string name="volume_setting_section">音量</string>
+	<string name="media_volume_title">"音乐、视频、游戏和其他媒体"</string>
+	<string name="ring_volume_title">"来电铃声"</string>
+	<string name="notification_volume_title">"系统通知"</string>
+	<string name="alarm_clock_volume_title">"闹钟"</string>
+	
+	<string name="virbator_section">"震动"</string>
+	<string name="virbator_title">"响铃时震动"</string>
+	
+	<string name="ring_section">"铃声"</string>
+	<string name="ring_tone_title">"来电铃声"</string>
+	<string name="notification_tone_title">"通知铃声"</string>
+	<string name="alarm_tone_title">闹钟铃声</string>
+	
+	<string name="rename">"重命名"</string>
+	<string name="delete">"删除"</string>
+	<string name="add">"添加"</string>
+	<string name="reset">"重置"</string>
+	
+	<string name="ringtone_unkown">"未设置铃声"</string>
+	<string name="ringtone_slient">"静音"</string>
+	
+	<string name="edit_tip">"在此输入新的名称"</string>
+	<string name="add_profile_title">"添加新的情景模式"</string>
+	<string name="profile_name_exist">"名称已存在"</string>
+	<string name="profile_name_cannot_null">"名称不能为空"</string>
+	
+	<string name="delete_profile_confirm">"确认提示"</string>
+	<string name="delete_profile_confirm_msg">"确定删除"</string>
+	<string name="reset_profile_confirm">"重置提示"</string>
+	<string name="reset_profile_confirm_msg">"确定重置情景模式到初始状态(这将会删除所有自定义的情景模式)？"</string>
+	<string name="delete_toast_activing">"不能删除正在应用的情景模式"</string>
+	<string name="delete_toast_default">"不能删除预设情景模式"</string>
+	
+	<string name="about">"关于"</string>
+	<string name="about_statement">"请在这里写点什么吧，不然怎么感觉这么突兀啊！@DreamLink"</string>
+</resources>

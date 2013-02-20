@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:key="pre_list">
+    
+    <PreferenceCategory 
+        android:key="default_profiles"
+        android:title="@string/pre_profiles"
+      	/>
+    
+     <PreferenceCategory 
+        android:key="custom_profiles"
+        android:title="@string/custom_profiles"
+       />
+
+</PreferenceScreen>

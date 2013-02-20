@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
+    >
+
+    <PreferenceCategory
+        android:key="profile_general_section"
+        android:title="@string/profile_name_section">
+    </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:key="profile_volume_section"
+        android:title="@string/volume_setting_section" />
+        
+       <PreferenceCategory 
+           android:key="vibrator_section"
+           android:title="@string/virbator_section"
+           ></PreferenceCategory>
+       <CheckBoxPreference
+         android:key="vibrate_when_ringing"
+         android:title="@string/virbator_title"
+         android:persistent="false" />
+        
+        <PreferenceCategory
+            android:key="ring_selection"
+            android:title="@string/ring_section"
+            />
+         <com.dreamlink.profiles.preference.ProfileRingtonePreference
+            android:key="ringtone"
+            android:title="@string/ring_tone_title"
+            android:summary="ringtone"
+            android:dialogTitle="@string/ring_tone_title"
+            android:persistent="false"
+            android:ringtoneType="ringtone" />
+         
+           <com.dreamlink.profiles.preference.ProfileRingtonePreference
+            android:key="notificationtone"
+            android:title="@string/notification_tone_title"
+            android:summary="notification"
+            android:dialogTitle="@string/notification_tone_title"
+            android:persistent="false"
+            android:ringtoneType="notification" />
+           
+          <com.dreamlink.profiles.preference.ProfileRingtonePreference
+              android:key="alarmtone"
+              android:title="@string/alarm_tone_title"
+              android:summary=""
+              android:dialogTitle="@string/alarm_tone_title"
+              android:persistent="false"
+              android:ringtoneType="alarm" />
+
+</PreferenceScreen>
