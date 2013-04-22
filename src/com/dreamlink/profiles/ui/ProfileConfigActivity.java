@@ -1,13 +1,12 @@
 package com.dreamlink.profiles.ui;
 
 import com.dreamlink.profiles.Profile;
-import com.dreamlink.profiles.R;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.Window;
-import android.view.WindowManager;
+import android.view.MenuItem;
 
 public class ProfileConfigActivity extends Activity {
 	private static final String TAG = "ProfileConfigActivity";
@@ -15,8 +14,12 @@ public class ProfileConfigActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		requestWindowFeature(Window.FEATURE_LEFT_ICON);
-//		setFeatureDrawableResource(Window.FEATURE_LEFT_ICON, R.drawable.biaozhun);
+		// click the title back
+		final ActionBar bar = getActionBar();
+		int flags = ActionBar.DISPLAY_HOME_AS_UP;
+		int change = bar.getDisplayOptions() ^ flags;
+		bar.setDisplayOptions(change, flags);
+				
 		Bundle bundle = getIntent().getExtras();
 		
 		Profile profile = null;
@@ -32,9 +35,22 @@ public class ProfileConfigActivity extends Activity {
 	
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		// TODO Auto-generated method stub
 		if (KeyEvent.KEYCODE_BACK == keyCode) {
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		// TODO Auto-generated method stub
+		switch (item.getItemId()) {
+		case android.R.id.home:
+			this.finish();
+			break;
+
+		default:
+			break;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 }

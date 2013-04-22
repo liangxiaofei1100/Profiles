@@ -1,11 +1,9 @@
 package com.dreamlink.profiles.preference;
 
 import com.dreamlink.profiles.Constant;
-import com.dreamlink.profiles.Profile;
 import com.dreamlink.profiles.R;
 import com.dreamlink.profiles.ui.ProfileConfigFragment;
 
-import android.R.integer;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentResolver;
@@ -46,7 +44,7 @@ public class StreamVolumePreference extends Preference implements
     
     public static SeekBarVolumizer mMediaBarVolumizer;
     public static SeekBarVolumizer mRingBarVolumizer;
-    public static SeekBarVolumizer mNotificationBarVolumizer;
+//    public static SeekBarVolumizer mNotificationBarVolumizer;
     public static SeekBarVolumizer mAlarmBarVolumizer;
     
     private static int mediaVolume;
@@ -151,10 +149,10 @@ public class StreamVolumePreference extends Preference implements
     	mRingBarVolumizer = new SeekBarVolumizer(getContext(), ringBar, AudioManager.STREAM_RING,  ProfileConfigFragment.mCurrentProfile.getRingOverride());
     	
     	//set notification seekbar
-    	final SeekBar notificationBar = (SeekBar)view.findViewById(R.id.seekbar_notification_v);
-    	notificationBar.setMax(am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION));
-    	notificationBar.setProgress( ProfileConfigFragment.mCurrentProfile.getNotificationVolume());
-    	mNotificationBarVolumizer = new SeekBarVolumizer(getContext(), notificationBar, AudioManager.STREAM_NOTIFICATION,  ProfileConfigFragment.mCurrentProfile.getNotificationOverride());
+//    	final SeekBar notificationBar = (SeekBar)view.findViewById(R.id.seekbar_notification_v);
+//    	notificationBar.setMax(am.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION));
+//    	notificationBar.setProgress( ProfileConfigFragment.mCurrentProfile.getNotificationVolume());
+//    	mNotificationBarVolumizer = new SeekBarVolumizer(getContext(), notificationBar, AudioManager.STREAM_NOTIFICATION,  ProfileConfigFragment.mCurrentProfile.getNotificationOverride());
     	
     	//set alarm seekbar
     	final SeekBar alarmBar = (SeekBar)view.findViewById(R.id.seekbar_alarm_v);
@@ -171,7 +169,7 @@ public class StreamVolumePreference extends Preference implements
             public void onClick(DialogInterface dialog, int which) {
             	int mediaValue = mediaBar.getProgress();
             	int ringValue = ringBar.getProgress();
-            	int notificationValue = notificationBar.getProgress();
+//            	int notificationValue = notificationBar.getProgress();
             	int alarmValue = alarmBar.getProgress();
             	
             	//
@@ -195,7 +193,7 @@ public class StreamVolumePreference extends Preference implements
                 //save
             	ProfileConfigFragment.mCurrentProfile.setMediaVolume(mediaValue);
             	ProfileConfigFragment.mCurrentProfile.setRingVolume(ringValue);
-            	ProfileConfigFragment.mCurrentProfile.setNotificationVolume(notificationValue);
+            	ProfileConfigFragment.mCurrentProfile.setNotificationVolume(ringValue);
             	ProfileConfigFragment.mCurrentProfile.setAlarmVolume(alarmValue);
 				
 				releaseVolumizer();
@@ -236,10 +234,10 @@ public class StreamVolumePreference extends Preference implements
     		mRingBarVolumizer = null;
 		}
     	
-    	if (mNotificationBarVolumizer != null) {
-    		mNotificationBarVolumizer.stop();
-    		mNotificationBarVolumizer = null;
-		}
+//    	if (mNotificationBarVolumizer != null) {
+//    		mNotificationBarVolumizer.stop();
+//    		mNotificationBarVolumizer = null;
+//		}
     	
     	if (mAlarmBarVolumizer != null) {
     		mAlarmBarVolumizer.stop();

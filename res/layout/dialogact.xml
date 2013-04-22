@@ -3,41 +3,38 @@
     android:layout_width="200dip"
     android:layout_height="300dip"
     android:layout_gravity="center_horizontal"
-    android:background="@drawable/dialpad_background"
+    android:background="@drawable/widget_light_bg"
     android:orientation="vertical" >
 
-    <ScrollView
+   <GridView
+        android:id="@+id/gridview"
         android:layout_width="match_parent"
+        android:columnWidth="70dip"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:overScrollMode="always" >
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical" >
-        </LinearLayout>
-    </ScrollView>
+        android:gravity="center"
+        android:numColumns="auto_fit" >
+    </GridView>
 
     <LinearLayout
+        android:id="@+id/settingClick"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:layout_weight="4" >
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+<!--         <RelativeLayout -->
+<!--             android:layout_width="match_parent" -->
+<!--             android:layout_height="wrap_content" > -->
 
             <ImageView
                 android:id="@+id/button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:background="@drawable/ic_launcher"
+                android:layout_gravity="center"
+                android:src="@drawable/setting_light"
                 android:text="Setting" />
-        </RelativeLayout>
+<!--         </RelativeLayout> -->
     </LinearLayout>
 
 </LinearLayout>

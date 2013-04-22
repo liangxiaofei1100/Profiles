@@ -1,7 +1,5 @@
 package com.dreamlink.profiles;
 
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
@@ -11,7 +9,6 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import com.dreamlink.profiles.data.ProfilesMetaData;
-import com.dreamlink.profiles.ui.ProfileConfigFragment;
 import com.dreamlink.profiles.ui.ProfileListFragment;
 
 import android.app.Service;
@@ -23,7 +20,6 @@ import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
@@ -49,7 +45,7 @@ public class ProfileService extends Service{
 	public void onCreate() {
 		// TODO Auto-generated method stub
 		super.onCreate();
-		Log.d(TAG, "onCreateService");
+		if(Constant.DEBUG) Log.d(TAG, "onCreateService");
 		mContext = getApplicationContext();
 	}
 	
@@ -147,7 +143,7 @@ public class ProfileService extends Service{
 	}
 	
 	private void addProfileInternel(Profile profile){
-		Log.v(TAG, "addProfileInternel");
+		if(Constant.DEBUG) Log.v(TAG, "addProfileInternel");
 		if(profile.isDefault()){
 			//id is the key of profile
 			ProfileListFragment.mDefaultProfiles.put(profile.getId() + "", profile);
@@ -160,7 +156,7 @@ public class ProfileService extends Service{
 	
 	/**get current all profiles*/
 	public void getProfiles(){
-		Log.d(TAG, "getProfiles.customsize=" + ProfileListFragment.mCustomProfiles.size()
+		if(Constant.DEBUG) Log.d(TAG, "getProfiles.customsize=" + ProfileListFragment.mCustomProfiles.size() + "\n"
 				+ "getProfiles.default=" + ProfileListFragment.mDefaultProfiles.size());
 		ProfileListFragment.defaultProfiles = ProfileListFragment.mDefaultProfiles.
 				values().toArray(new Profile[ProfileListFragment.mDefaultProfiles.size()]);
@@ -225,9 +221,11 @@ public class ProfileService extends Service{
 	}
 	
 	public boolean setActiveProfile(Profile newActiveProfile){
-		Log.d(TAG, "setActiveProfile-->" + newActiveProfile.getProfileName());
+		if(Constant.DEBUG) Log.d(TAG, "setActiveProfile-->" + newActiveProfile.getProfileName());
 		//use new profile for active profile
+		
 		newActiveProfile.doSelect(mContext);
+		
 		return true;
 	}
 	
@@ -251,8 +249,11 @@ public class ProfileService extends Service{
 	
 	/**query all profiles*/
 	private void queryRecord(){
-		ProfileListFragment.mDefaultProfiles.clear();
-		ProfileListFragment.mCustomProfiles.clear();
+		if (null != ProfileListFragment.mDefaultProfiles) {
+			ProfileListFragment.mDefaultProfiles.clear();
+		}else if (null != ProfileListFragment.mCustomProfiles) {
+			ProfileListFragment.mCustomProfiles.clear();
+		}
 		
 		Cursor cur = null;
 		try {
@@ -321,6 +322,14 @@ public class ProfileService extends Service{
 	
 	public static void setHandler(Handler handler){
 		mHandler = handler;
+	}
+	
+	public void setProfileMute(){
+		
+	}
+	
+	public void setProfileVirbator(){
+		
 	}
 
 }

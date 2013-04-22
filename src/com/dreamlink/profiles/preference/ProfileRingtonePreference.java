@@ -5,17 +5,19 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.preference.RingtonePreference;
-import android.util.AttributeSet;
+import android.util.Log;
 
 /**custom profile ringtone preference*/
 public class ProfileRingtonePreference extends RingtonePreference {
-    private static final String TAG = "ProfileRingtonePreference";
+	private static final String TAG = "ProfileRingtonePreference";
+    private Uri mRingtone;
 
-    public ProfileRingtonePreference(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
+    public ProfileRingtonePreference(Context context, Uri uri) {
+		super(context);
+		this.mRingtone = uri;
+	}
 
-    @Override
+	@Override
     protected void onPrepareRingtonePickerIntent(Intent ringtonePickerIntent) {
         super.onPrepareRingtonePickerIntent(ringtonePickerIntent);
 
@@ -26,15 +28,17 @@ public class ProfileRingtonePreference extends RingtonePreference {
         ringtonePickerIntent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, false);
     }
 
-    private Uri mRingtone;
-
-    void setRingtone(Uri uri) {
+    public void setRingtone(Uri uri) {
         mRingtone = uri;
     }
 
     @Override
     protected Uri onRestoreRingtone() {
+    	//显示打开对话框后，哪个应该被选中(Open dialog box is displayed, which should be selected)
+//    	return ProfileConfigFragment.mCurrentProfile.getRingOverride();
+//    	return mRingtone;
         if (mRingtone == null) {
+        	Log.e(TAG, "mRingtone is null");
             return super.onRestoreRingtone();
         } else {
             return mRingtone;

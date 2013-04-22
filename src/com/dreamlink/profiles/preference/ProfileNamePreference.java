@@ -3,10 +3,8 @@ package com.dreamlink.profiles.preference;
 import java.lang.reflect.Field;
 
 import com.dreamlink.profiles.Profile;
+import com.dreamlink.profiles.ProfileUtil;
 import com.dreamlink.profiles.R;
-import com.dreamlink.profiles.R.id;
-import com.dreamlink.profiles.R.layout;
-import com.dreamlink.profiles.R.string;
 import com.dreamlink.profiles.ui.ProfileConfigFragment;
 import com.dreamlink.profiles.ui.ProfileListFragment;
 
@@ -83,16 +81,26 @@ public class ProfileNamePreference extends Preference implements
     @Override
     public void onClick(android.view.View v) {
         if (v != null) {
+        	if (ProfileConfigFragment.mCurrentProfile == null) {
+				return;
+			}
+        	
+        	if (ProfileConfigFragment.mCurrentProfile.isDefault()) {
+    			//default profile ,can not rename
+        		return;
+    		}
+        	
             Context context = getContext();
             if (context != null) {
             	LayoutInflater inflater = LayoutInflater.from(context);
             	final View view = inflater.inflate(R.layout.profile_dialog, null);
-                final EditText entry = (EditText)view.findViewById(R.id.name_edit);
-                entry.setSingleLine();
-                entry.setText(mName.toString());
-                entry.setPadding(34, 16, 34, 16);
+                final EditText entryEdit = (EditText)view.findViewById(R.id.name_edit);
+                entryEdit.setText(mName.toString());
+                entryEdit.setPadding(34, 16, 34, 16);
+                ProfileUtil.onFocusChange(entryEdit, true);
                 
                 final TextView tipText = (TextView)view.findViewById(R.id.error_tip_text);
+                ProfileUtil.setEditLengthFilter(entryEdit, tipText, 20);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
                 builder.setTitle(R.string.rename);
@@ -101,7 +109,7 @@ public class ProfileNamePreference extends Preference implements
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                            	String value = entry.getText().toString().trim();
+                            	String value = entryEdit.getText().toString().trim();
                                 
                                 if (value.equals("")) {
                 					setDialogDismiss(dialog, false);

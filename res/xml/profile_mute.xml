@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:settings="http://schemas.android.com/apk/res/com.android.settings" >
+
+    <PreferenceCategory
+        android:key="profile_name_section"
+        android:title="@string/profile_name_section" >
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:key="profile_general_section"
+        android:title="@string/profile_general_section" >
+    </PreferenceCategory>
+    <CheckBoxPreference
+        android:key="vibrate_mute"
+        android:persistent="false"
+        android:title="@string/virbator_mute_title"
+        android:summary="@string/virbator_summary"
+         />
+
+<!--     <PreferenceCategory -->
+<!--         android:key="ring_selection" -->
+<!--         android:title="@string/ring_section" /> -->
+
+</PreferenceScreen>

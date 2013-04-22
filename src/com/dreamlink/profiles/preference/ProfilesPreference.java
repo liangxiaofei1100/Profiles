@@ -1,19 +1,24 @@
 package com.dreamlink.profiles.preference;
 
 import com.dreamlink.profiles.Profile;
+import com.dreamlink.profiles.ProfileManager;
 import com.dreamlink.profiles.R;
 import com.dreamlink.profiles.ui.ProfileConfigActivity;
+import com.dreamlink.profiles.ui.ProfileConfigFragment;
 import com.dreamlink.profiles.ui.ProfileListFragment;
+import com.dreamlink.profiles.ui.ProfileMuteFragment;
 
-import android.annotation.TargetApi;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 /**custom CheckBoxPreference, use it for viewing profiles list*/
@@ -38,6 +43,7 @@ public class ProfilesPreference extends CheckBoxPreference {
         @Override
         public void onClick(View arg0) {
         	Log.d(TAG, "onClick");
+        	System.out.println("onClick");
             if (!isEnabled() || isChecked()) {
                 return;
             }
@@ -61,16 +67,10 @@ public class ProfilesPreference extends CheckBoxPreference {
         mProfilesPref = view.findViewById(R.id.profiles_pref);
         mProfilesPref.setOnClickListener(mPrefOnclickListener);
         
-//        iconView = (ImageView) view.findViewById(R.id.profile_icon);
-//        for(Profile profile : ProfileListFragment.defaultProfiles){
-//    		iconView.setImageResource(profile.getIcon());
-//    	}
-//        for (int i = 0; i < ProfileListFragment.customProfiles.length; i++) {
-//			System.out.println("0000000000");
-//		}
-        
         mProfilesSettingsButton = (ImageView)view.findViewById(R.id.profiles_settings);
+        //show the profille name
         mTitleText = (TextView)view.findViewById(android.R.id.title);
+        //if you have something to show,you can set here
         mSummaryText = (TextView)view.findViewById(android.R.id.summary);
         mImageView = (ImageView)view.findViewById(android.R.id.icon);
 
@@ -87,6 +87,16 @@ public class ProfilesPreference extends CheckBoxPreference {
                             }
                         }
                     });
+            
+            mProfilesSettingsButton.setOnLongClickListener(new OnLongClickListener() {
+				@Override
+				public boolean onLongClick(View v) {
+					//on long click show delete menu
+					onPopupViewClick(v);
+					return false;
+				}
+			});
+            
         }
         if (mSettingsBundle == null) {
             mProfilesSettingsButton.setVisibility(View.GONE);
@@ -147,10 +157,17 @@ public class ProfilesPreference extends CheckBoxPreference {
     }
 
     private void startProfileConfigActivity() {
-    	//open sub fragment
-    	Intent intent = new Intent(mFragment.getActivity(),ProfileConfigActivity.class);
-    	intent.putExtras(mSettingsBundle);
-    	
+    	Profile profile = mSettingsBundle.getParcelable("Profile");
+    	Intent intent = new Intent();
+    	if (profile.getProfileName().equals(mFragment.getActivity().getResources().getString(R.string.profileNameSlient))) {
+    		//静音的话，显示不同的UI
+			intent.setClass(mFragment.getActivity(), ProfileMuteFragment.class);
+			intent.putExtras(mSettingsBundle);
+		}else {
+			//open sub fragment
+			intent.setClass(mFragment.getActivity(), ProfileConfigActivity.class);
+	    	intent.putExtras(mSettingsBundle);
+		}
     	mFragment.startActivity(intent);
     	mFragment.getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
     }
@@ -158,6 +175,21 @@ public class ProfilesPreference extends CheckBoxPreference {
     @Override
     public void setChecked(boolean checked) {
         super.setChecked(checked);
+    }
+    
+    //popup menu
+    public void onPopupViewClick(View view) {
+        PopupMenu popup = new PopupMenu(mFragment.getActivity(), view);
+        popup.getMenuInflater().inflate(R.menu.popup, popup.getMenu());
+        popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            public boolean onMenuItemClick(MenuItem item) {
+            	final Profile profile = mSettingsBundle.getParcelable("Profile");
+            	final ProfileManager profileManager = ProfileManager.newInstance(mFragment.getActivity());
+            	profileManager.doDeleteProfile(profile);
+                return true;
+            }
+        });
+        popup.show();
     }
     
 }

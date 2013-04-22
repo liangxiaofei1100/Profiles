@@ -1,53 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:settings="http://schemas.android.com/apk/res/com.android.settings"
-    >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:settings="http://schemas.android.com/apk/res/com.android.settings" >
 
     <PreferenceCategory
         android:key="profile_general_section"
-        android:title="@string/profile_name_section">
+        android:title="@string/profile_name_section" >
     </PreferenceCategory>
     
     <PreferenceCategory
-        android:key="profile_volume_section"
-        android:title="@string/volume_setting_section" />
-        
-       <PreferenceCategory 
-           android:key="vibrator_section"
-           android:title="@string/virbator_section"
-           ></PreferenceCategory>
-       <CheckBoxPreference
-         android:key="vibrate_when_ringing"
-         android:title="@string/virbator_title"
-         android:persistent="false" />
-        
-        <PreferenceCategory
-            android:key="ring_selection"
-            android:title="@string/ring_section"
-            />
-         <com.dreamlink.profiles.preference.ProfileRingtonePreference
-            android:key="ringtone"
-            android:title="@string/ring_tone_title"
-            android:summary="ringtone"
-            android:dialogTitle="@string/ring_tone_title"
-            android:persistent="false"
-            android:ringtoneType="ringtone" />
-         
-           <com.dreamlink.profiles.preference.ProfileRingtonePreference
-            android:key="notificationtone"
-            android:title="@string/notification_tone_title"
-            android:summary="notification"
-            android:dialogTitle="@string/notification_tone_title"
-            android:persistent="false"
-            android:ringtoneType="notification" />
-           
-          <com.dreamlink.profiles.preference.ProfileRingtonePreference
-              android:key="alarmtone"
-              android:title="@string/alarm_tone_title"
-              android:summary=""
-              android:dialogTitle="@string/alarm_tone_title"
-              android:persistent="false"
-              android:ringtoneType="alarm" />
+        android:key="volume_vibrator_section"
+        android:title="@string/volume_virbator_section" >
+    </PreferenceCategory>
+    <CheckBoxPreference
+        android:key="vibrate_when_ringing"
+        android:persistent="false"
+        android:title="@string/virbator_title" />
+
+    <PreferenceCategory
+        android:key="ring_selection"
+        android:title="@string/ring_section" />
+    <!-- set in code:ProfileConfigFragment -->
+<!--     <com.dreamlink.profiles.preference.ProfileRingtonePreference -->
+<!--         android:dialogTitle="@string/ring_tone_title" -->
+<!--         android:key="ringtone" -->
+<!--         android:persistent="false" -->
+<!--         android:ringtoneType="ringtone" -->
+<!--         android:summary="ringtone" -->
+<!--         android:title="@string/ring_tone_title" /> -->
+<!--     <com.dreamlink.profiles.preference.ProfileRingtonePreference -->
+<!--         android:dialogTitle="@string/notification_tone_title" -->
+<!--         android:key="notificationtone" -->
+<!--         android:persistent="false" -->
+<!--         android:ringtoneType="notification" -->
+<!--         android:summary="notification" -->
+<!--         android:title="@string/notification_tone_title" /> -->
+<!--     <com.dreamlink.profiles.preference.ProfileRingtonePreference -->
+<!--         android:dialogTitle="@string/alarm_tone_title" -->
+<!--         android:key="alarmtone" -->
+<!--         android:persistent="false" -->
+<!--         android:ringtoneType="alarm" -->
+<!--         android:summary="" -->
+<!--         android:title="@string/alarm_tone_title" /> -->
+<!-- set in code:ProfileConfigFragment -->
 
 </PreferenceScreen>

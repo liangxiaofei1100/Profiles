@@ -179,10 +179,10 @@ public class SeekBarVolumizer implements OnSeekBarChangeListener, Runnable {
     		StreamVolumePreference.mRingBarVolumizer.stopSample();
 		}
     	
-    	if (StreamVolumePreference.mNotificationBarVolumizer != null && 
-    			volumizer != StreamVolumePreference.mNotificationBarVolumizer) {
-    		StreamVolumePreference.mNotificationBarVolumizer.stopSample();
-		}
+//    	if (StreamVolumePreference.mNotificationBarVolumizer != null && 
+//    			volumizer != StreamVolumePreference.mNotificationBarVolumizer) {
+//    		StreamVolumePreference.mNotificationBarVolumizer.stopSample();
+//		}
     	
     	if (StreamVolumePreference.mAlarmBarVolumizer != null && 
     			volumizer != StreamVolumePreference.mAlarmBarVolumizer) {

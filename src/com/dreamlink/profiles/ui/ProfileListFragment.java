@@ -1,7 +1,6 @@
 package com.dreamlink.profiles.ui;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,19 +8,17 @@ import com.dreamlink.profiles.Constant;
 import com.dreamlink.profiles.Profile;
 import com.dreamlink.profiles.ProfileManager;
 import com.dreamlink.profiles.ProfileService;
+import com.dreamlink.profiles.ProfileUtil;
 import com.dreamlink.profiles.R;
 import com.dreamlink.profiles.preference.ProfilesPreference;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.graphics.Color;
-import android.media.RingtoneManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -35,16 +32,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.PopupMenu;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 /**
@@ -80,10 +71,7 @@ public class ProfileListFragment extends PreferenceFragment implements OnPrefere
 		
 		mProfileManager = ProfileManager.newInstance(mContext);
 		
-//		ProfileService.setHandler(mHandler);
-		
 		setHasOptionsMenu(true);
-		
 	}
 	
 	@Override
@@ -98,11 +86,11 @@ public class ProfileListFragment extends PreferenceFragment implements OnPrefere
 	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		MenuItem resetItem = menu.add(0, Constant.MENU_RESET, 1, R.string.reset).setIcon(R.drawable.ic_settings_backup);
-    	resetItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM |
-                MenuItem.SHOW_AS_ACTION_WITH_TEXT);
+		MenuItem resetItem = menu.add(0, Constant.MENU_RESET, 0, R.string.reset).setIcon(R.drawable.revert_light);
+//    	resetItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM |
+//                MenuItem.SHOW_AS_ACTION_WITH_TEXT);
     	
-    	MenuItem addItem = menu.add(0, Constant.MENU_ADD, 1, R.string.add).setIcon(R.drawable.ic_menu_add);
+    	MenuItem addItem = menu.add(0, Constant.MENU_ADD, 0, R.string.add).setIcon(R.drawable.add_light);
     	addItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM |
                 MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 		super.onCreateOptionsMenu(menu, inflater);
@@ -140,11 +128,14 @@ public class ProfileListFragment extends PreferenceFragment implements OnPrefere
 		LayoutInflater factory = LayoutInflater.from(mContext);
 		final View addProfileView = factory.inflate(R.layout.profile_dialog, null);
 		final EditText editText = (EditText) addProfileView.findViewById(R.id.name_edit);
+		ProfileUtil.onFocusChange(editText, true);//show IME
 		final TextView textView = (TextView) addProfileView.findViewById(R.id.error_tip_text);
+		//set the name can not more be 20 charts
+		ProfileUtil.setEditLengthFilter(editText, textView, 20);
 		
 		//情景模式图标选择view
 		final GridView gridView = (GridView)addProfileView.findViewById(R.id.icon_view);
-		final IconAdapter adapter = new IconAdapter();
+		final IconAdapter adapter = new IconAdapter(mContext);
 		gridView.setAdapter(adapter);
 		gridView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -227,37 +218,22 @@ public class ProfileListFragment extends PreferenceFragment implements OnPrefere
 		profile.setNotificationVolume(Constant.NOTIFICATION_VOLUME);
 		profile.setAlarmVolume(Constant.ALARM_VOLUME);
 		profile.setRingVibrator(Constant.RING_VIBRATOR);
-//		profile.setRingOverride(Constant.RINGTONE);
-//		profile.setNotificationOverride(Constant.NOTIFICATIONTONE);
-		profile.setRingOverride(mProfileManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE));
-		profile.setNotificationOverride(mProfileManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
-		profile.setAlarmOverride(mProfileManager.getDefaultUri(RingtoneManager.TYPE_ALARM));
+		profile.setRingOverride(ProfileUtil.ringtone_uri);
+		profile.setNotificationOverride(ProfileUtil.notification_uri);
+		profile.setAlarmOverride(ProfileUtil.alarm_uri);
 		profile.setDefault(Constant.DEFAULT);
 		profile.setIcon(icon_id);
-		
-		//put into lists
-		mCustomProfiles.put(profile.getId() + "", profile);
 		
 		//save to db
 		mProfileManager.insertProfile(profile);
 		
 		mProfileManager.queryRecord();
-//		//start sub fragment
-//		Bundle bundle = new Bundle();
-//    	Intent intent = new Intent(mContext,ProfileConfigActivity.class);
-//    	bundle.putParcelable("Profile", profile);
-//    	intent.putExtras(bundle);
-//    	
-//    	mContext.startActivity(intent);
-//    	getActivity().overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 	}
 	
 	/**update list*/
 	public void refreshList() {
 		ProfilesPreference ppref;
-		// String enable_name = sp.getString(Constant.ENABLE, null);
 		int active_id = sp.getInt(Constant.ENABLE, -1);
-//		System.out.println("active_id = " + active_id);
 
 		// show default mode profiles in main list
 		PreferenceGroup defaultGroup = (PreferenceGroup) findPreference("default_profiles");
@@ -279,18 +255,21 @@ public class ProfileListFragment extends PreferenceFragment implements OnPrefere
 				ppref.setIcon(profile.getIcon());
 				//
 				if (active_id == -1) {
-					String defaultProfile = getResources().getString(R.string.profileNameDeafult);
-					if (profile.getProfileName().equals(defaultProfile)) {
-						ppref.setChecked(true);
-
-						// set the profile active
-						Editor editor = sp.edit();
-						editor.putInt(Constant.ENABLE, profile.getId());
-						editor.commit();
-
-						// do apply
-						mProfileManager.setActiveProfille(profile, mContext);
-					}
+					//让用户自己选择激活
+//					String defaultProfile = getResources().getString(R.string.profileNameDeafult);
+//					if (profile.getProfileName().equals(defaultProfile)) {
+//						ppref.setChecked(true);
+//
+//						// set the profile active
+//						Editor editor = sp.edit();
+//						editor.putInt(Constant.ENABLE, profile.getId());
+//						editor.putString(Constant.ACTIVE_NAME, profile.getProfileName());
+//						editor.putInt(Constant.ACTIVE_ICON_ID, profile.getIcon());
+//						editor.commit();
+//
+//						// do apply
+//						mProfileManager.setActiveProfille(profile, mContext);
+//					}
 				} else if (active_id == profile.getId()) {
 					ppref.setChecked(true);
 				}
@@ -315,8 +294,7 @@ public class ProfileListFragment extends PreferenceFragment implements OnPrefere
 
 					// use custom preference
 					ppref = new ProfilesPreference(ProfileListFragment.this, args);
-					ppref.setKey(profile.getId() + "");// use profile name for
-														// key
+					ppref.setKey(profile.getId() + "");// use profile name for key
 					ppref.setTitle(profile.getProfileName());
 					ppref.setPersistent(false);
 					ppref.setOnPreferenceChangeListener(this);
@@ -353,7 +331,16 @@ public class ProfileListFragment extends PreferenceFragment implements OnPrefere
 				return false;
 			}
 			
+			//send broadcast to update widget
+			Intent intent = new Intent(Constant.ACTION_APP_WIDGET_UPDATE);
+			Bundle bundle = new Bundle();
+			bundle.putParcelable("profile", profile);
+			intent.putExtras(bundle);
+			mContext.sendBroadcast(intent);
+			
 			editor.putInt(Constant.ENABLE, profile.getId());
+			editor.putString(Constant.ACTIVE_NAME, profile.getProfileName());
+			editor.putInt(Constant.ACTIVE_ICON_ID, profile.getIcon());
 			editor.commit();
 			
 			mProfileManager.setActiveProfille(profile, mContext);
@@ -398,60 +385,9 @@ public class ProfileListFragment extends PreferenceFragment implements OnPrefere
 		}
 	};
 	
-	public class IconAdapter extends BaseAdapter{
-		private int select_pos = 0;//默认选中第一个
-		
-		public void setPosition(int pos){
-			select_pos = pos;
-		}
-		@Override
-		public int getCount() {
-			// TODO Auto-generated method stub
-			return mThumbIds.length;
-		}
-
-		@Override
-		public Object getItem(int position) {
-			// TODO Auto-generated method stub
-			return position;
-		}
-
-		@Override
-		public long getItemId(int position) {
-			// TODO Auto-generated method stub
-			return position;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			// TODO Auto-generated method stub
-			ImageView imageView;
-            if (convertView == null) {
-                imageView = new ImageView(mContext);
-                imageView.setLayoutParams(new GridView.LayoutParams(90, 90));
-                imageView.setAdjustViewBounds(false);
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                imageView.setPadding(8, 8, 8, 8);
-            } else {
-                imageView = (ImageView) convertView;
-            }
-            
-            if (position == select_pos) {
-				imageView.setBackgroundColor(getResources().getColor(R.color.bac_color));
-			}else {
-				imageView.setBackgroundColor(Color.TRANSPARENT);
-			}
-            
-            imageView.setImageResource(mThumbIds[position]);
-            return imageView;
-		}
-		
-		public final Integer[] mThumbIds = {
-				R.drawable.biaozhun, R.drawable.huiyi,
-				R.drawable.slient, R.drawable.out,
-				R.drawable.profile_icon_1, R.drawable.profile_icon_2,
-				R.drawable.profile_icon_3, R.drawable.profile_icon_4
-		};
-	}
+	public void onDestroy() {
+		super.onDestroy();
+		mProfileManager.stopService();
+	};
 
 }

@@ -7,7 +7,6 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import android.content.Context;
 import android.media.AudioManager;
-import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Parcel;
@@ -198,11 +197,29 @@ public class Profile implements Parcelable,Comparable{
 					profile.setAlarmVolume(Integer.valueOf(xpp.nextText()));
 				}else if (name.equals("ringtone")) {
 					//ringtone use system default uri
-					profile.setRingOverride(Uri.parse(xpp.nextText()));
+//					profile.setRingOverride(Uri.parse(xpp.nextText()));
+					if (ProfileUtil.ringtone_uri != null) {
+						profile.setRingOverride(ProfileUtil.ringtone_uri);
+						xpp.nextText();
+					}else {
+						profile.setRingOverride(Uri.parse(xpp.nextText()));
+					}
 				}else if (name.equals("notificationtone")) {
-					profile.setNotificationOverride(Uri.parse(xpp.nextText()));
+//					profile.setNotificationOverride(Uri.parse(xpp.nextText()));
+					if (ProfileUtil.notification_uri != null) {
+						profile.setNotificationOverride(ProfileUtil.notification_uri);
+						xpp.nextText();
+					}else {
+						profile.setNotificationOverride(Uri.parse(xpp.nextText()));
+					}
 				}else if (name.equals("alarmtone")) {
-					profile.setAlarmOverride(Uri.parse(xpp.nextText()));
+//					profile.setAlarmOverride(Uri.parse(xpp.nextText()));
+					if (ProfileUtil.alarm_uri != null) {
+						profile.setAlarmOverride(ProfileUtil.alarm_uri);
+						xpp.nextText();
+					}else {
+						profile.setAlarmOverride(Uri.parse(xpp.nextText()));
+					}
 				}else if (name.equals("ringvibrator")) {
 					profile.setRingVibrator(xpp.nextText().equals("0")? false : true);
 				}else if (name.equals("default")) {
@@ -212,7 +229,6 @@ public class Profile implements Parcelable,Comparable{
 					int icon_id = -1;
 					if (value != null) {
 						icon_id = context.getResources().getIdentifier(icon_value, "drawable", "com.dreamlink.profiles");
-						System.out.println("icon____id=" + icon_id);
 						profile.setIcon(icon_id);
 					}
 				}
@@ -224,7 +240,6 @@ public class Profile implements Parcelable,Comparable{
 
 	@Override
 	public void writeToParcel(Parcel dest, int flags) {
-		// TODO Auto-generated method stub
 		dest.writeInt(id);
 		dest.writeString(mProfileName);
 		dest.writeInt(mMediaVolume);
@@ -291,8 +306,21 @@ public class Profile implements Parcelable,Comparable{
 	public void doSelect(Context context){
 		//apply to system
 		if(Constant.DEBUG) Log.d(TAG, "doSelect=" + mProfileName);
-		//set steam volume
+		
 		AudioManager am = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+		
+		if (mProfileName.equals(context.getResources().getString(R.string.profileNameSlient))) {
+			//静音模式
+			if (mRingVibrator) {
+				//振动
+				vibrate(am);
+			}else {
+				silent(am);
+			}
+			return;
+		}
+		
+		//set steam volume
 		am.setStreamVolume(AudioManager.STREAM_MUSIC, mMediaVolume, 0);
 		am.setStreamVolume(AudioManager.STREAM_RING, mRingVolume, 0);
 		am.setStreamVolume(AudioManager.STREAM_NOTIFICATION, mNotificationVolume, 0);
@@ -307,6 +335,20 @@ public class Profile implements Parcelable,Comparable{
 		RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_NOTIFICATION, mNotificationOverride);
 		RingtoneManager.setActualDefaultRingtoneUri(context, RingtoneManager.TYPE_ALARM, mAlarmOverride);
 		
+	}
+	
+	// 震动
+	protected void vibrate(AudioManager audio) {
+		audio.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+		audio.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_ON);
+		audio.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_ON);
+	}
+
+	// 静音
+	protected void silent(AudioManager audio) {
+		audio.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+		audio.setVibrateSetting(AudioManager.VIBRATE_TYPE_RINGER, AudioManager.VIBRATE_SETTING_OFF);
+		audio.setVibrateSetting(AudioManager.VIBRATE_TYPE_NOTIFICATION, AudioManager.VIBRATE_SETTING_OFF);
 	}
 	
 }

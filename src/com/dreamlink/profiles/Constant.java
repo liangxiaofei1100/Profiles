@@ -2,8 +2,6 @@ package com.dreamlink.profiles;
 
 import com.dreamlink.profiles.data.ProfilesMetaData;
 
-import android.content.Context;
-import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Environment;
@@ -19,9 +17,7 @@ public class Constant {
 	public static final int NOTIFICATION_VOLUME = 3;//max is 7
 	public static final int ALARM_VOLUME = 3;//max is 7
 	public static final boolean RING_VIBRATOR = false;
-//	public static final Uri RINGTONE = Uri.parse("content://settings/system/ringtone");
 	public static final Uri RINGTONE = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE);
-//	public static final Uri NOTIFICATIONTONE = Uri.parse("content://settings/system/notification_sound");
 	public static final Uri NOTIFICATIONTONE =RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 	public static final Uri ALARMTONE = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 	public static final boolean DEFAULT = false;//default profile or not
@@ -57,8 +53,18 @@ public class Constant {
 	
 	/**use SharedPreference to save the active profile name*/
 	public static final String PROFILE_SHARE = "profile_share";
-	/**which profile is enable/active*/
+	/**which profile is enable/active. Type:int*/
 	public static final String ENABLE= "enable";
+	/**save active profile name. Type:String*/
+	public static final String ACTIVE_NAME = "active_name";
+	/**save active profile icon. Type:int*/
+	public static final String ACTIVE_ICON_ID = "active_icon_id";
+	/**save the default ringtone uri. Type:String*/
+	public static final String DEFAULT_RINGTONE_URI = "ringtone";
+	/**save the default notification uri. Type:String*/
+	public static final String DEFAULT_NOTIFICATION_URI = "notification";
+	/**save the default alarm uri. Type:String*/
+	public static final String DEFAULT_ALARM_URI = "alarm";
 	
 	/**default config doc*/
 	public static final String PROFILE_DEFAULT = Environment.getExternalStorageDirectory().getAbsolutePath() + "/profile_default.xml";
@@ -68,5 +74,8 @@ public class Constant {
 	public static final int MENU_DELETE = 0x01;
 	public static final int MENU_RESET = 0x02;
 	public static final int MENU_ABOUT = 0x03;
+	
+	/**broadcast action*/
+	public static final String ACTION_APP_WIDGET_UPDATE = "com.dreamlink.profiles.appWidgetUpdate";
 	
 }

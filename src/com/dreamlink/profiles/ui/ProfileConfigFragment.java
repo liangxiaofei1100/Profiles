@@ -3,6 +3,7 @@ package com.dreamlink.profiles.ui;
 import com.dreamlink.profiles.Constant;
 import com.dreamlink.profiles.Profile;
 import com.dreamlink.profiles.ProfileManager;
+import com.dreamlink.profiles.ProfileUtil;
 import com.dreamlink.profiles.R;
 import com.dreamlink.profiles.preference.ProfileNamePreference;
 import com.dreamlink.profiles.preference.ProfileRingtonePreference;
@@ -27,6 +28,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -76,7 +78,7 @@ public class ProfileConfigFragment extends PreferenceFragment implements OnPrefe
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		// TODO Auto-generated method stub
-		MenuItem menuItem = menu.add(0, Constant.MENU_DELETE, 1, R.string.delete).setIcon(R.drawable.ic_menu_delete_holo_dark);
+		MenuItem menuItem = menu.add(0, Constant.MENU_DELETE, 1, R.string.delete).setIcon(R.drawable.delete_light);
 		menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM |
                 MenuItem.SHOW_AS_ACTION_WITH_TEXT);
 		super.onCreateOptionsMenu(menu, inflater);
@@ -87,10 +89,10 @@ public class ProfileConfigFragment extends PreferenceFragment implements OnPrefe
 		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		case Constant.MENU_DELETE:
-			if (isCanDelete()) {
+			if (isCanDelete(getActivity())) {
 				//do delete this profile
 				new AlertDialog.Builder(getActivity()).setTitle(R.string.delete_profile_confirm)
-					.setIcon(android.R.drawable.ic_dialog_alert)
+					.setIcon(R.drawable.alert_light)
 					.setMessage(getResources().getString(R.string.delete_profile_confirm_msg) + "\"" + mCurrentProfile.getProfileName() + "\"?")
 					.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
 						
@@ -113,7 +115,6 @@ public class ProfileConfigFragment extends PreferenceFragment implements OnPrefe
 	public void onResume() {
 		super.onResume();
 //		ProfileService.setHandler(configHandler);
-		
 		refreshList();
 	}
 	
@@ -141,22 +142,17 @@ public class ProfileConfigFragment extends PreferenceFragment implements OnPrefe
 		}
 		
 		//add volume setcion
-		PreferenceGroup volumePref = (PreferenceGroup) prefset.findPreference("profile_volume_section");
-		if (volumePref != null) {
-			volumePref.removeAll();
+		PreferenceGroup volume_vibratorPref = (PreferenceGroup) prefset.findPreference("volume_vibrator_section");
+		if (volume_vibratorPref != null) {
+			volume_vibratorPref.removeAll();
 			
 			//profile volume
 			volumeSetPreference = new StreamVolumePreference(getActivity());
 			volumeSetPreference.setOnPreferenceChangeListener(this);
 			volumeSetPreference.setTitle(R.string.volume_setting_section);
-			volumePref.addPreference(volumeSetPreference);
-		}
+			volume_vibratorPref.addPreference(volumeSetPreference);
 		
-		//add incalling ring vibrator
-		PreferenceGroup vibratorPref = (PreferenceGroup)findPreference("vibrator_section");
-		if (vibratorPref != null) {
-			vibratorPref.removeAll();
-			
+			//vibrator
 			vibratorPreference = (CheckBoxPreference)findPreference("vibrate_when_ringing");
 			vibratorPreference.setChecked(mCurrentProfile.getRingVibrator());
 			vibratorPreference.setOnPreferenceClickListener(this);
@@ -167,26 +163,41 @@ public class ProfileConfigFragment extends PreferenceFragment implements OnPrefe
 		if (ringPref != null) {
 			ringPref.removeAll();
 			
-			ringTonePreference = (ProfileRingtonePreference) findPreference("ringtone");
+			//call ring set
+			ringTonePreference = new ProfileRingtonePreference(getActivity(), mCurrentProfile.getRingOverride());
 			ringTonePreference.setShowSilent(false);
+			ringTonePreference.setPersistent(false);
+			ringTonePreference.setRingtoneType(RingtoneManager.TYPE_RINGTONE);
+			ringTonePreference.setTitle(R.string.ring_tone_title);
 			ringTonePreference.setOnPreferenceChangeListener(this);
 			if (mCurrentProfile.getRingOverride() != null) {
 				updateRingToneNames(mCurrentProfile.getRingOverride(), RingtoneManager.TYPE_RINGTONE);
 			}
+			ringPref.addPreference(ringTonePreference);
 			
-			notificationTonePreference = (ProfileRingtonePreference) findPreference("notificationtone");
-			ringTonePreference.setShowSilent(false);
+			//notification ring set
+			notificationTonePreference =  new ProfileRingtonePreference(getActivity(), mCurrentProfile.getNotificationOverride());
+			notificationTonePreference.setShowSilent(false);
+			notificationTonePreference.setPersistent(false);
+			notificationTonePreference.setRingtoneType(RingtoneManager.TYPE_NOTIFICATION);
+			notificationTonePreference.setTitle(R.string.notification_tone_title);
 			notificationTonePreference.setOnPreferenceChangeListener(this);
 			if (mCurrentProfile.getNotificationOverride() != null) {
 				updateRingToneNames(mCurrentProfile.getNotificationOverride(), RingtoneManager.TYPE_NOTIFICATION);
 			}
+			ringPref.addPreference(notificationTonePreference);
 			
-			alarmTonePreference = (ProfileRingtonePreference) findPreference("alarmtone");
+			//alarm ring set
+			alarmTonePreference = new ProfileRingtonePreference(getActivity(), mCurrentProfile.getAlarmOverride());
 			alarmTonePreference.setShowSilent(false);
+			alarmTonePreference.setPersistent(false);
+			alarmTonePreference.setRingtoneType(RingtoneManager.TYPE_ALARM);
+			alarmTonePreference.setTitle(R.string.alarm_tone_title);
 			alarmTonePreference.setOnPreferenceChangeListener(this);
 			if (mCurrentProfile.getAlarmOverride() != null) {
 				updateRingToneNames(mCurrentProfile.getAlarmOverride(), RingtoneManager.TYPE_ALARM);
 			}
+			ringPref.addPreference(alarmTonePreference);
 			
 		}
 		
@@ -228,22 +239,20 @@ public class ProfileConfigFragment extends PreferenceFragment implements OnPrefe
 		if (context == null)
 			return;
 		CharSequence summary = context.getString(R.string.ringtone_unkown);
+		
 		// Is it a silent ringtone?
-		if (uri == null) {
-			summary = context.getString(R.string.ringtone_slient);
+		Cursor cursor = mProfileManager.getUriCursor(uri);
+		if (cursor == null) {
+			// Unknown title for the ringtone
+			//use default ringtone
 		} else {
 			// Fetch the ringtone title from the media provider
 			try {
-				Cursor cursor = context.getContentResolver().query(uri, 
-						new String[] { MediaStore.Audio.Media.TITLE }, null, null,null);
-				if (cursor != null) {
-					if (cursor.moveToFirst()) {
-						summary = cursor.getString(0);
-					}
-					cursor.close();
+				if (cursor.moveToFirst()) {
+					summary = cursor.getString(0);
 				}
+				cursor.close();
 			} catch (SQLiteException sqle) {
-				// Unknown title for the ringtone
 			}
 		}
 		
@@ -256,18 +265,17 @@ public class ProfileConfigFragment extends PreferenceFragment implements OnPrefe
 		}
 	}
 	
-	private boolean isCanDelete(){
-		SharedPreferences sp = getActivity().getSharedPreferences(Constant.PROFILE_SHARE, Context.MODE_PRIVATE);
-//		String activeName = sp.getString(Constant.ENABLE, null);
+	public boolean isCanDelete(Context context){
+		SharedPreferences sp = context.getSharedPreferences(Constant.PROFILE_SHARE, Context.MODE_PRIVATE);
 		int active_id = sp.getInt(Constant.ENABLE, -1);
 		
 		if(mCurrentProfile.isDefault()){//default profile cannot delete
 			//default profile cannot delete
-			Toast.makeText(getActivity(), R.string.delete_toast_default, Toast.LENGTH_LONG).show();
+			Toast.makeText(context, R.string.delete_toast_default, Toast.LENGTH_LONG).show();
 			return false;
 		}else if (active_id == mCurrentProfile.getId()) {
 			//activing profile cannot delete
-			Toast.makeText(getActivity(), R.string.delete_toast_activing, Toast.LENGTH_LONG).show();
+			Toast.makeText(context, R.string.delete_toast_activing, Toast.LENGTH_LONG).show();
 			return false;
 		}else {
 			return true;
@@ -281,9 +289,6 @@ public class ProfileConfigFragment extends PreferenceFragment implements OnPrefe
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case CMSG_DELETED:
-//				Intent intent = new Intent(getActivity(), ProfileListActivity.class);
-//				startActivity(intent);
-//				getActivity().overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
 				break;
 
 			default:

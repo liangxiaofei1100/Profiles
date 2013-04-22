@@ -10,9 +10,9 @@
         <ringtone>content://settings/system/ringtone</ringtone><!-- 来电铃声 -->
         <notificationtone>content://settings/system/notification_sound</notificationtone><!-- 通知铃声 -->
         <alarmtone>content://settings/system/alarm_alert</alarmtone><!-- 闹钟铃声 -->
-        <ringvibrator>1</ringvibrator><!-- 来电时是否振动，0:不震动，1：振动 -->
+        <ringvibrator>0</ringvibrator><!-- 来电时是否振动，0:不震动，1：振动 -->
          <default>1</default><!-- 1:预设情景模式,0:自定义情景模式 -->
-         <icon nameres="slient"></icon><!-- 设置情景模式图标 -->
+         <icon nameres="slient_light"></icon><!-- 设置情景模式图标 -->
     </profile>
     <!-- 会议 -->
     <profile nameres="profileNameConference">
@@ -25,7 +25,7 @@
         <alarmtone>content://settings/system/alarm_alert</alarmtone><!-- 闹钟铃声 -->
         <ringvibrator>1</ringvibrator><!-- 来电时是否振动，0:不震动，1：振动 -->
          <default>1</default><!-- 1:预设情景模式,0:自定义情景模式 -->
-         <icon nameres="huiyi"></icon><!-- 设置情景模式图标 -->
+         <icon nameres="huiyi_light"></icon><!-- 设置情景模式图标 -->
     </profile>
     <!-- 户外 -->
     <profile nameres="profileNameOutdoor">
@@ -38,7 +38,7 @@
         <alarmtone>content://settings/system/alarm_alert</alarmtone><!-- 闹钟铃声 -->
         <ringvibrator>1</ringvibrator><!-- 来电时是否振动，0:不震动，1：振动 -->
          <default>1</default><!-- 1:预设情景模式,0:自定义情景模式 -->
-         <icon nameres="out"></icon><!-- 设置情景模式图标 -->
+         <icon nameres="outdoor_light"></icon><!-- 设置情景模式图标 -->
     </profile>
      <!-- 标准 -->
     <profile nameres="profileNameDeafult">
@@ -51,7 +51,7 @@
         <alarmtone>content://settings/system/alarm_alert</alarmtone><!-- 闹钟铃声 -->
         <ringvibrator>1</ringvibrator><!-- 来电时是否振动，0:不震动，1：振动 -->
         <default>1</default><!-- 1:预设情景模式,0:自定义情景模式 -->
-        <icon nameres="biaozhun"></icon><!-- 设置情景模式图标 -->
+        <icon nameres="biaozhun_light"></icon><!-- 设置情景模式图标 -->
     </profile>
     <!-- 预设模式 -->
     

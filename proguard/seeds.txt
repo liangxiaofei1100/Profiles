@@ -29,15 +29,22 @@ com.dreamlink.profiles.ProfileService
 com.dreamlink.profiles.ProfileService: ProfileService()
 com.dreamlink.profiles.data.ProfilesProvider
 com.dreamlink.profiles.data.ProfilesProvider: ProfilesProvider()
-com.dreamlink.profiles.data.ProfilesProviderTest
 com.dreamlink.profiles.preference.ProfileNamePreference
 com.dreamlink.profiles.preference.ProfileRingtonePreference
-com.dreamlink.profiles.preference.ProfileRingtonePreference: ProfileRingtonePreference(android.content.Context,android.util.AttributeSet)
 com.dreamlink.profiles.preference.ProfilesPreference
 com.dreamlink.profiles.preference.StreamVolumePreference
 com.dreamlink.profiles.preference.StreamVolumePreference: StreamVolumePreference(android.content.Context,android.util.AttributeSet,int)
 com.dreamlink.profiles.preference.StreamVolumePreference: StreamVolumePreference(android.content.Context,android.util.AttributeSet)
+com.dreamlink.profiles.ui.AboutActivity
+com.dreamlink.profiles.ui.AboutActivity: AboutActivity()
 com.dreamlink.profiles.ui.ProfileConfigActivity
 com.dreamlink.profiles.ui.ProfileConfigActivity: ProfileConfigActivity()
 com.dreamlink.profiles.ui.ProfileListActivity
 com.dreamlink.profiles.ui.ProfileListActivity: ProfileListActivity()
+com.dreamlink.profiles.ui.ProfileMuteFragment
+com.dreamlink.profiles.ui.ProfileMuteFragment: ProfileMuteFragment()
+com.dreamlink.profiles.widget.ProfilesWidget
+com.dreamlink.profiles.widget.ProfilesWidget: ProfilesWidget()
+com.dreamlink.profiles.widget.ProfilesWidgetActivity
+com.dreamlink.profiles.widget.ProfilesWidgetActivity: ProfilesWidgetActivity()
+com.dreamlink.profiles.widget.ProfilesWidgetActivity: void onClick(android.view.View)

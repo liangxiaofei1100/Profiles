@@ -1,22 +1,17 @@
 package com.dreamlink.profiles.ui;
 
 import com.dreamlink.profiles.Constant;
+import com.dreamlink.profiles.ProfileUtil;
 import com.dreamlink.profiles.R;
 
 import android.media.RingtoneManager;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
+import android.content.Intent;
 
 /**
  *  Main launch
@@ -27,7 +22,17 @@ public class ProfileListActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        init();
+        
         getFragmentManager().beginTransaction().replace(android.R.id.content, new ProfileListFragment()).commit();
+    }
+    
+    private void init(){
+    	//get uri and save
+		ProfileUtil.ringtone_uri = RingtoneManager.getActualDefaultRingtoneUri(this, RingtoneManager.TYPE_RINGTONE);
+		ProfileUtil.notification_uri = RingtoneManager.getActualDefaultRingtoneUri(this, RingtoneManager.TYPE_NOTIFICATION);
+		ProfileUtil.alarm_uri = RingtoneManager.getActualDefaultRingtoneUri(this, RingtoneManager.TYPE_ALARM);
     }
     
     @Override
@@ -42,7 +47,7 @@ public class ProfileListActivity extends Activity {
     @Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// TODO Auto-generated method stub
-		menu.add(0, Constant.MENU_ABOUT, 1, R.string.about);
+		menu.add(0, Constant.MENU_ABOUT, 2, R.string.about);
 		return super.onCreateOptionsMenu(menu);
 	}
 	
@@ -51,11 +56,8 @@ public class ProfileListActivity extends Activity {
 		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		case Constant.MENU_ABOUT:
-			new AlertDialog.Builder(ProfileListActivity.this)
-				.setTitle(R.string.about)
-				.setMessage(R.string.about_statement)
-				.setPositiveButton(android.R.string.ok, null)
-				.create().show();
+			Intent intent = new Intent(this, AboutActivity.class);
+			startActivity(intent);
 			break;
 
 		default:
