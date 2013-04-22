@@ -78,8 +78,8 @@ public class ProfilesWidget extends AppWidgetProvider {
 		super.onUpdate(context, appWidgetManager, appWidgetIds);
 		if(Constant.DEBUG) Log.d(TAG, "onUpdate");
 		sp = context.getSharedPreferences(Constant.PROFILE_SHARE, Context.MODE_PRIVATE);
-		String active_name = sp.getString(Constant.ACTIVE_NAME, "DL_Profiles");
-		int active_icon_id = sp.getInt(Constant.ACTIVE_ICON_ID, R.drawable.ic_launcher);
+		String active_name = sp.getString(Constant.ACTIVE_NAME, "ÏµÍ³Ä¬ÈÏ");
+		int active_icon_id = sp.getInt(Constant.ACTIVE_ICON_ID, R.drawable.biaozhun_light);
 		RemoteViews rv = new RemoteViews(context.getPackageName(),
 				R.layout.widget_layout);
 		
