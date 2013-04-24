@@ -3,12 +3,12 @@ package com.dreamlink.profiles.ui;
 import com.dreamlink.profiles.Constant;
 import com.dreamlink.profiles.Profile;
 import com.dreamlink.profiles.ProfileManager;
-import com.dreamlink.profiles.ProfileUtil;
 import com.dreamlink.profiles.R;
 import com.dreamlink.profiles.preference.ProfileNamePreference;
 import com.dreamlink.profiles.preference.ProfileRingtonePreference;
 import com.dreamlink.profiles.preference.StreamVolumePreference;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,8 +27,6 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
-import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -41,6 +39,7 @@ import android.widget.Toast;
  * 3.vibrator set:vibrator when incoming call
  * 4.Ring set:incoming call ring,notification ring
  * */
+@SuppressLint("ValidFragment")
 public class ProfileConfigFragment extends PreferenceFragment implements OnPreferenceChangeListener, OnPreferenceClickListener{
 	private static final String TAG = "ProfileConfigFragment";
 	//profile name preference
@@ -57,6 +56,10 @@ public class ProfileConfigFragment extends PreferenceFragment implements OnPrefe
 	private ProfileManager mProfileManager;
 	public static Profile mCurrentProfile;
 	
+	public ProfileConfigFragment(){
+		
+	};
+	
 	public ProfileConfigFragment(Profile profile) {
 		mCurrentProfile = profile;
 	}
@@ -69,15 +72,12 @@ public class ProfileConfigFragment extends PreferenceFragment implements OnPrefe
 		
 		mProfileManager = ProfileManager.newInstance(getActivity());
 		
-//		ProfileService.setHandler(configHandler);
-		
 		//set show menu
 		setHasOptionsMenu(true);
 	}
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		// TODO Auto-generated method stub
 		MenuItem menuItem = menu.add(0, Constant.MENU_DELETE, 1, R.string.delete).setIcon(R.drawable.delete_light);
 		menuItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM |
                 MenuItem.SHOW_AS_ACTION_WITH_TEXT);
@@ -86,7 +86,6 @@ public class ProfileConfigFragment extends PreferenceFragment implements OnPrefe
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		case Constant.MENU_DELETE:
 			if (isCanDelete(getActivity())) {
@@ -114,7 +113,6 @@ public class ProfileConfigFragment extends PreferenceFragment implements OnPrefe
 	@Override
 	public void onResume() {
 		super.onResume();
-//		ProfileService.setHandler(configHandler);
 		refreshList();
 	}
 	
@@ -227,7 +225,6 @@ public class ProfileConfigFragment extends PreferenceFragment implements OnPrefe
 
 	@Override
 	public boolean onPreferenceClick(Preference preference) {
-		// TODO Auto-generated method stub
 		if (preference == vibratorPreference) {
 			mCurrentProfile.setRingVibrator(vibratorPreference.isChecked());
 		}

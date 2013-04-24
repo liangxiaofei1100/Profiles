@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dreamlink.profiles"
     android:versionCode="1"
-    android:versionName="1.3" >
+    android:versionName="@string/version_code" >
 
     <uses-sdk
         android:minSdkVersion="11"
@@ -14,7 +14,7 @@
         <activity
             android:name=".ui.ProfileListActivity"
             android:label="@string/title_activity_main"
-            android:screenOrientation="portrait" >
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,11 +24,10 @@
         <activity
             android:name=".ui.ProfileConfigActivity"
             android:label="@string/item_edit"
-            android:screenOrientation="portrait" />
+            />
         <activity 
             android:name=".ui.ProfileMuteFragment"
             android:label="@string/item_edit"
-            android:screenOrientation="portrait"
             ></activity>
 
         <service android:name=".ProfileService" >

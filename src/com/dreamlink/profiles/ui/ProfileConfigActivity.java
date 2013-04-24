@@ -30,7 +30,8 @@ public class ProfileConfigActivity extends Activity {
 		}
 		
 		//open ProfileConfigFragment
-		getFragmentManager().beginTransaction().replace(android.R.id.content, new ProfileConfigFragment(profile)).commit();
+		getFragmentManager().beginTransaction().replace(android.R.id.content, new ProfileConfigFragment(profile))
+		.commit();
 	}
 	
 	@Override
@@ -42,7 +43,6 @@ public class ProfileConfigActivity extends Activity {
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			this.finish();

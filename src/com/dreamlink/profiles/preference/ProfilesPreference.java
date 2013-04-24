@@ -20,6 +20,7 @@ import android.view.View.OnLongClickListener;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**custom CheckBoxPreference, use it for viewing profiles list*/
 public class ProfilesPreference extends CheckBoxPreference {
@@ -43,7 +44,6 @@ public class ProfilesPreference extends CheckBoxPreference {
         @Override
         public void onClick(View arg0) {
         	Log.d(TAG, "onClick");
-        	System.out.println("onClick");
             if (!isEnabled() || isChecked()) {
                 return;
             }
@@ -93,7 +93,7 @@ public class ProfilesPreference extends CheckBoxPreference {
 				public boolean onLongClick(View v) {
 					//on long click show delete menu
 					onPopupViewClick(v);
-					return false;
+					return true;
 				}
 			});
             
