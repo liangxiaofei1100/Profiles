@@ -29,12 +29,21 @@ com.dreamlink.profiles.ProfileService
 com.dreamlink.profiles.ProfileService: ProfileService()
 com.dreamlink.profiles.data.ProfilesProvider
 com.dreamlink.profiles.data.ProfilesProvider: ProfilesProvider()
+com.dreamlink.profiles.data.ProfilesProviderTest
 com.dreamlink.profiles.preference.ProfileNamePreference
 com.dreamlink.profiles.preference.ProfileRingtonePreference
 com.dreamlink.profiles.preference.ProfilesPreference
 com.dreamlink.profiles.preference.StreamVolumePreference
 com.dreamlink.profiles.preference.StreamVolumePreference: StreamVolumePreference(android.content.Context,android.util.AttributeSet,int)
 com.dreamlink.profiles.preference.StreamVolumePreference: StreamVolumePreference(android.content.Context,android.util.AttributeSet)
+com.dreamlink.profiles.start.AppIntroduce
+com.dreamlink.profiles.start.AppIntroduce: AppIntroduce()
+com.dreamlink.profiles.start.ScrollLayout
+com.dreamlink.profiles.start.ScrollLayout: ScrollLayout(android.content.Context)
+com.dreamlink.profiles.start.ScrollLayout: ScrollLayout(android.content.Context,android.util.AttributeSet)
+com.dreamlink.profiles.start.ScrollLayout: ScrollLayout(android.content.Context,android.util.AttributeSet,int)
+com.dreamlink.profiles.start.StartActivity
+com.dreamlink.profiles.start.StartActivity: StartActivity()
 com.dreamlink.profiles.ui.AboutActivity
 com.dreamlink.profiles.ui.AboutActivity: AboutActivity()
 com.dreamlink.profiles.ui.ProfileConfigActivity

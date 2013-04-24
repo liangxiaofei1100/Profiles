@@ -25,6 +25,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.SimpleAdapter;
 
 public class ProfilesWidgetActivity extends Activity implements OnClickListener,
@@ -32,6 +33,7 @@ public class ProfilesWidgetActivity extends Activity implements OnClickListener,
 	private static final String TAG = "DialogForAppWidget";
 	private GridView gv;
 	private View view;
+	private ImageView mSettingView;
 	private ArrayList<Profile> pList;
 
 	@Override
@@ -41,14 +43,18 @@ public class ProfilesWidgetActivity extends Activity implements OnClickListener,
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
-		setContentView(R.layout.dialogact);
+		setContentView(R.layout.widget_dialog);
 		
 		pList = new ArrayList<Profile>();
+		
 		gv = (GridView) findViewById(R.id.gridview);
 		gv.setOnItemClickListener(this);
 		
 		view = findViewById(R.id.settingClick);
 		view.setOnClickListener(this);
+		
+//		mSettingView = (ImageView) findViewById(R.id.setting_button);
+//		mSettingView.setOnClickListener(this);
 		
 		queryRecord();
 	}
@@ -67,7 +73,6 @@ public class ProfilesWidgetActivity extends Activity implements OnClickListener,
 	}
 
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		if (v.getId() == R.id.settingClick) {
 			Intent intent = new Intent();
 			intent.setClass(this, ProfileListActivity.class);

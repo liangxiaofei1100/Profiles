@@ -1140,6 +1140,17 @@ com.dreamlink.profiles.data.ProfilesProvider -> com.dreamlink.profiles.data.Prof
 com.dreamlink.profiles.data.ProfilesProvider$DatabaseHelper -> com.dreamlink.profiles.data.c:
     void onCreate(android.database.sqlite.SQLiteDatabase) -> onCreate
     void onUpgrade(android.database.sqlite.SQLiteDatabase,int,int) -> onUpgrade
+com.dreamlink.profiles.data.ProfilesProviderTest -> com.dreamlink.profiles.data.ProfilesProviderTest:
+    android.widget.TextView mTextView -> b
+    java.lang.String[] columns -> a
+    void onCreate(android.os.Bundle) -> onCreate
+    void showDBItems() -> a
+    void testInsert() -> b
+    android.net.Uri insertReord(java.lang.String,java.lang.String,int) -> a
+    void access$0(com.dreamlink.profiles.data.ProfilesProviderTest) -> a
+com.dreamlink.profiles.data.ProfilesProviderTest$ProfilesContentObserver -> com.dreamlink.profiles.data.d:
+    com.dreamlink.profiles.data.ProfilesProviderTest this$0 -> a
+    void onChange(boolean) -> onChange
 com.dreamlink.profiles.preference.ProfileNamePreference -> com.dreamlink.profiles.preference.ProfileNamePreference:
     android.widget.TextView mNameView -> a
     java.lang.String mName -> b
@@ -1246,8 +1257,47 @@ com.dreamlink.profiles.preference.StreamVolumePreference$1 -> com.dreamlink.prof
     int val$active_id -> e
     android.media.AudioManager val$am -> f
     void onClick(android.content.DialogInterface,int) -> onClick
+com.dreamlink.profiles.start.AppIntroduce -> com.dreamlink.profiles.start.AppIntroduce:
+    com.dreamlink.profiles.start.ScrollLayout mScrollLayout -> a
+    android.widget.ImageView[] imgs -> b
+    int count -> c
+    int currentItem -> d
+    android.widget.Button startBtn -> e
+    android.widget.RelativeLayout mainRLayout -> f
+    android.widget.LinearLayout pointLLayout -> g
+    android.content.SharedPreferences sp -> h
+    android.content.SharedPreferences$Editor editor -> i
+    android.view.View$OnClickListener onClick -> j
+    void onCreate(android.os.Bundle) -> onCreate
+    void OnViewChange(int) -> a
+    boolean onKeyDown(int,android.view.KeyEvent) -> onKeyDown
+    android.content.SharedPreferences access$0(com.dreamlink.profiles.start.AppIntroduce) -> a
+    void access$1(com.dreamlink.profiles.start.AppIntroduce,android.content.SharedPreferences$Editor) -> a
+    android.content.SharedPreferences$Editor access$2(com.dreamlink.profiles.start.AppIntroduce) -> b
+com.dreamlink.profiles.start.AppIntroduce$1 -> com.dreamlink.profiles.start.a:
+    com.dreamlink.profiles.start.AppIntroduce this$0 -> a
+    void onClick(android.view.View) -> onClick
+com.dreamlink.profiles.start.OnViewChangeListener -> com.dreamlink.profiles.start.b:
+    void OnViewChange(int) -> a
+com.dreamlink.profiles.start.ScrollLayout -> com.dreamlink.profiles.start.ScrollLayout:
+    android.view.VelocityTracker mVelocityTracker -> a
+    android.widget.Scroller mScroller -> b
+    int mCurScreen -> c
+    int mDefaultScreen -> d
+    float mLastMotionX -> e
+    com.dreamlink.profiles.start.OnViewChangeListener mOnViewChangeListener -> f
+    void init(android.content.Context) -> a
+    void onLayout(boolean,int,int,int,int) -> onLayout
+    void onMeasure(int,int) -> onMeasure
+    void snapToScreen(int) -> a
+    void computeScroll() -> computeScroll
+    boolean onTouchEvent(android.view.MotionEvent) -> onTouchEvent
+    void SetOnViewChangeListener(com.dreamlink.profiles.start.OnViewChangeListener) -> a
+com.dreamlink.profiles.start.StartActivity -> com.dreamlink.profiles.start.StartActivity:
+    void onCreate(android.os.Bundle) -> onCreate
 com.dreamlink.profiles.ui.AboutActivity -> com.dreamlink.profiles.ui.AboutActivity:
     void onCreate(android.os.Bundle) -> onCreate
+    boolean onOptionsItemSelected(android.view.MenuItem) -> onOptionsItemSelected
 com.dreamlink.profiles.ui.IconAdapter -> com.dreamlink.profiles.ui.a:
     int select_pos -> b
     android.content.Context mContext -> c

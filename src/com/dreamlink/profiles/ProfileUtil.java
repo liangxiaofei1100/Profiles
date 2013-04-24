@@ -11,6 +11,9 @@ import android.widget.TextView;
 
 /**funtions that used*/
 public class ProfileUtil {
+	
+	public static final String SHARED_NAME = "profile_share";
+	public static final String FIRST_START_FLAG = "first_start_flag";
 
 	public static Uri ringtone_uri;
 	public static Uri notification_uri;

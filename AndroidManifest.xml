@@ -12,8 +12,9 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Holo.Light" >
         <activity
-            android:name=".ui.ProfileListActivity"
+            android:name=".start.StartActivity"
             android:label="@string/title_activity_main"
+            android:theme="@android:style/Theme.Black.NoTitleBar"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,6 +22,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.ProfileListActivity"
+            android:label="@string/title_activity_main"
+            />
+        <activity
+            android:name=".start.AppIntroduce"
+            android:label="@string/title_activity_main"
+            android:theme="@android:style/Theme.Black.NoTitleBar"
+            />
         <activity
             android:name=".ui.ProfileConfigActivity"
             android:label="@string/item_edit"

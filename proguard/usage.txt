@@ -986,8 +986,10 @@ com.dreamlink.profiles.ProfileService:
     329:329:public void setProfileMute()
     333:333:public void setProfileVirbator()
 com.dreamlink.profiles.ProfileUtil:
+    public static final java.lang.String SHARED_NAME
+    public static final java.lang.String FIRST_START_FLAG
     13:13:public ProfileUtil()
-    20:21:public static int px2dip(android.content.Context,float)
+    23:24:public static int px2dip(android.content.Context,float)
 com.dreamlink.profiles.R
 com.dreamlink.profiles.R$anim
 com.dreamlink.profiles.R$attr
@@ -1026,6 +1028,11 @@ com.dreamlink.profiles.data.ProfilesProvider:
     private static final java.lang.String TAG
     public static final int PROFILES_COLLECTION
     public static final int PROFILES_SINGLE
+com.dreamlink.profiles.data.ProfilesProviderTest:
+    private android.widget.Button mButton
+    112:114:private void testDelete(java.lang.String)
+    117:119:private void deleteAll()
+    144:149:private void testupdate(android.net.Uri,com.dreamlink.profiles.Profile)
 com.dreamlink.profiles.preference.ProfileNamePreference:
     private static final java.lang.String TAG
     44:46:public ProfileNamePreference(android.content.Context)
@@ -1050,6 +1057,9 @@ com.dreamlink.profiles.preference.StreamVolumePreference:
     private android.widget.SeekBar mBar
     86:87:public void setStreamType(int)
     90:90:public int getStreamType()
+com.dreamlink.profiles.start.ScrollLayout:
+    private static final java.lang.String TAG
+    private static final int SNAP_VELOCITY
 com.dreamlink.profiles.ui.ProfileConfigActivity:
     private static final java.lang.String TAG
 com.dreamlink.profiles.ui.ProfileConfigFragment:
@@ -1070,3 +1080,4 @@ com.dreamlink.profiles.widget.ProfilesWidget:
     private static final java.lang.String TAG
 com.dreamlink.profiles.widget.ProfilesWidgetActivity:
     private static final java.lang.String TAG
+    private android.widget.ImageView mSettingView

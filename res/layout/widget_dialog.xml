@@ -1,0 +1,82 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialpad"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/settingClick"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/button_selector"
+        android:orientation="horizontal"
+        android:paddingTop="5dp" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/app_name" />
+
+            <ImageView
+                android:id="@+id/setting_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:contentDescription="@string/menu_settings"
+                android:paddingRight="5dp"
+                android:src="@drawable/widget_header_settings_btn"
+                android:text="@string/menu_settings" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/divide"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:background="#0099CC" />
+
+    <GridView
+        android:id="@+id/gridview"
+        android:layout_width="match_parent"
+        android:layout_height="0dip"
+        android:layout_weight="1"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:columnWidth="70dip"
+        android:gravity="center"
+        android:numColumns="auto_fit" >
+    </GridView>
+
+    <!-- <View -->
+    <!-- android:id="@+id/divide" -->
+    <!-- android:layout_height="2dp" -->
+    <!-- android:layout_width="fill_parent" -->
+    <!-- android:background="#0099CC" -->
+    <!-- /> -->
+    <!-- <LinearLayout -->
+    <!-- android:id="@+id/settingClick" -->
+    <!-- android:layout_width="match_parent" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:background="@drawable/button_selector" -->
+    <!-- android:gravity="center" -->
+    <!-- > -->
+    <!-- <ImageView -->
+    <!-- android:id="@+id/setting_button" -->
+    <!-- android:layout_width="fill_parent" -->
+    <!-- android:layout_height="wrap_content" -->
+    <!-- android:layout_gravity="center" -->
+    <!-- android:contentDescription="@string/menu_settings" -->
+    <!-- android:src="@drawable/setting_light" -->
+    <!-- android:text="@string/menu_settings" /> -->
+
+
+    <!-- </LinearLayout> -->
+
+</LinearLayout>
