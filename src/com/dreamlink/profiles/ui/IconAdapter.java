@@ -54,7 +54,6 @@ public class IconAdapter extends BaseAdapter {
 		}else {
 			imageView.setBackgroundColor(Color.TRANSPARENT);
 		}
-        
         imageView.setImageResource(mThumbIds[position]);
         return imageView;
 	}

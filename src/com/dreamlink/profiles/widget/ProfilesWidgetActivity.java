@@ -35,6 +35,11 @@ public class ProfilesWidgetActivity extends Activity implements OnClickListener,
 	private View view;
 	private ImageView mSettingView;
 	private ArrayList<Profile> pList;
+	
+	private WidgetAdapter mAdapter;
+	
+	private SharedPreferences sp = null;
+	private int selected_id = -1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,15 +60,22 @@ public class ProfilesWidgetActivity extends Activity implements OnClickListener,
 		
 //		mSettingView = (ImageView) findViewById(R.id.setting_button);
 //		mSettingView.setOnClickListener(this);
+		sp = getSharedPreferences(Constant.PROFILE_SHARE, MODE_PRIVATE);
+		selected_id = sp.getInt(Constant.ENABLE, -1);
 		
 		queryRecord();
+		
+		mAdapter = new WidgetAdapter(ProfilesWidgetActivity.this, pList, selected_id);
+		gv.setAdapter(mAdapter);
 	}
 
 	@Override
 	protected void onResume() {
 		// TODO Auto-generated method stub
 		super.onResume();
-		gv.setAdapter(createDataAdapter());
+//		gv.setAdapter(createDataAdapter());
+//		mAdapter = new WidgetAdapter(ProfilesWidgetActivity.this, pList, selected_id);
+//		gv.setAdapter(mAdapter);
 	}
 
 	@Override
@@ -153,7 +165,6 @@ public class ProfilesWidgetActivity extends Activity implements OnClickListener,
 	}
 	
 	private void doSelect(Profile profile){
-		SharedPreferences sp = getSharedPreferences(Constant.PROFILE_SHARE, MODE_PRIVATE);
 		Editor editor = sp.edit();
 		editor.putInt(Constant.ENABLE, profile.getId());
 		editor.putString(Constant.ACTIVE_NAME, profile.getProfileName());
